@@ -15,8 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NextJS V2 - Aplikasi dengan NextJS 16 dan TailwindCSS",
-  description: "Aplikasi contoh yang dibangun dengan NextJS 16, TailwindCSS",
+  title: "Front-End",
   manifest: '/manifest.json',
   viewport: {
     width: "device-width",
