@@ -60,22 +60,22 @@ class NotificationManager {
     // Kirim notifikasi
     async sendNotification(options: NotificationOptions): Promise<void> {
         let permission = Notification.permission;
+        console.log("Current notification permission state:", permission);
+
         if (permission === 'default') {
             permission = await this.requestPermission();
+            console.log("Notification permission state after request:", permission);
         }
 
         if (permission !== 'granted') {
-            console.warn('Permission untuk notifikasi belum diberikan');
+            console.warn('Permission untuk notifikasi belum diberikan. Status:', permission);
+            alert(`Izin notifikasi diblokir browser (Status: ${permission}). Silakan klik ikon gembok di sebelah kiri URL browser Anda dan ubah izin Notifikasi menjadi 'Izinkan' (Allow).`);
             return;
         }
 
         if (!this.swRegistration) {
+            console.log("Service Worker registration is null, initializing...");
             await this.initialize();
-        }
-
-        if (!this.swRegistration) {
-            console.error('Service Worker tidak tersedia');
-            return;
         }
 
         try {
@@ -89,9 +89,26 @@ class NotificationManager {
                 }
             };
 
-            await this.swRegistration.showNotification(options.title, notificationOptions);
+            console.log("Showing notification with options:", notificationOptions);
+
+            if (this.swRegistration) {
+                await this.swRegistration.showNotification(options.title, notificationOptions);
+                console.log("Notification sent successfully via Service Worker.");
+            } else {
+                console.warn("Service Worker not available, falling back to window.Notification");
+                new Notification(options.title, notificationOptions);
+            }
         } catch (error) {
-            console.error('Error mengirim notifikasi:', error);
+            console.error('Error mengirim notifikasi via Service Worker:', error);
+            try {
+                console.log("Attempting fallback to standard window.Notification");
+                new Notification(options.title, {
+                    body: options.body,
+                    icon: options.icon || '/icon-192x192.png'
+                });
+            } catch (err) {
+                console.error('Fallback window.Notification juga gagal:', err);
+            }
         }
     }
 

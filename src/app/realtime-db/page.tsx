@@ -78,8 +78,8 @@ export default function IndexDBPage() {
             });
             setNewTodo("");
             loadTodos(); // Memastikan UI ter-refresh setelah menambah data
-        } catch (error) {
-            console.error('Error adding todo:', error);
+        } catch (error: any) {
+            console.error('Error adding todo:', error?.message || error, JSON.stringify(error));
         }
     };
 
