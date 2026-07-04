@@ -110,18 +110,7 @@ export default function WebStoragePage() {
             <PageTransition>
                 <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50"}`}>
                     <div className="max-w-5xl mx-auto p-6 space-y-6">
-                        <div className="mb-6">
-                            <Link
-                                href="/"
-                                className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm w-fit"
-                            >
-                                {/* Icon panah ke kiri */}
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                                Kembali ke Home
-                            </Link>
-                        </div>
+
                         {/* Header */}
                         <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg shadow-lg"> {/* Perbaikan: typo purpel dan shadow-l */}
                             <h1 className="text-2xl font-bold">Web Storage</h1> {/* Perbaikan: 2x; menjadi 2xl */}
@@ -136,15 +125,15 @@ export default function WebStoragePage() {
                                 {/* Simpan Nama*/}
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Nama Pengguna</label>
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col sm:flex-row gap-2">
                                         <input
                                             type="text"
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             placeholder="Masukkan nama..."
-                                            className="flex-1 px-3 py-2 border rounded-lg text-gray-900"
+                                            className="w-full sm:flex-1 px-3 py-2 border rounded-lg text-gray-900 focus:outline-none focus:border-blue-500"
                                         />
-                                        <button onClick={saveName} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                        <button onClick={saveName} className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition active:scale-[0.98]">
                                             Simpan
                                         </button>
                                     </div>
@@ -157,25 +146,25 @@ export default function WebStoragePage() {
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => saveTheme("light")}
-                                            className={`px-4 py-2 rounded-lg ${theme === "light" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"}`}>Light</button>
+                                            className={`px-4 py-2 rounded-lg font-semibold transition active:scale-[0.98] ${theme === "light" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"}`}>Light</button>
                                         <button
                                             onClick={() => saveTheme("dark")}
-                                            className={`px-4 py-2 rounded-lg ${theme === "dark" ? "bg-blue-500 text-white" : "bg-gray-700 text-gray-200"}`}>Dark</button>
+                                            className={`px-4 py-2 rounded-lg font-semibold transition active:scale-[0.98] ${theme === "dark" ? "bg-blue-500 text-white" : "bg-gray-700 text-gray-200"}`}>Dark</button>
                                     </div>
                                     <p className="text-xs mt-1 opacity-70">Simpan di Local Storage</p>
                                 </div>
                                 {/* Simpan Filter */}
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Filter Pencarian</label>
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col sm:flex-row gap-2">
                                         <input
                                             type="text"
                                             value={filter}
                                             onChange={(e) => setFilter(e.target.value)} // Perbaikan: setName menjadi setFilter
                                             placeholder="Masukkan  Filter..."
-                                            className="flex-1 px-3 py-2 border rounded-lg text-gray-900"
+                                            className="w-full sm:flex-1 px-3 py-2 border rounded-lg text-gray-900 focus:outline-none focus:border-blue-500"
                                         />
-                                        <button onClick={saveFilter} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                        <button onClick={saveFilter} className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition active:scale-[0.98]">
                                             Simpan
                                         </button>
                                     </div>
@@ -183,14 +172,14 @@ export default function WebStoragePage() {
                                 </div>
                                 {/* Simpan All sebagai JSON*/}
                                 <div>
-                                    <button onClick={savePreferences} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                    <button onClick={savePreferences} className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition active:scale-[0.98]">
                                         Simpan Preferensi (Local Storage JSON)
                                     </button>
                                 </div>
 
                                 {/* Hapus All JSON*/}
                                 <div>
-                                    <button onClick={clearAll} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                    <button onClick={clearAll} className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition active:scale-[0.98]">
                                         Hapus Semua Data Storage
                                     </button>
                                 </div>
