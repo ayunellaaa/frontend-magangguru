@@ -85,7 +85,7 @@ export default function SiswaForm({ classes, onSubmit }: SiswaFormProps) {
         <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
             <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4">
                 <h2 className="text-xl font-bold text-white">Tambah Data Siswa</h2>
-                <p className="text-blue-100 text-xs mt-1">Masukkan informasi siswa secara lengkap ke database</p>
+                <p className="text-blue-100 text-xs mt-1">Masukkan informasi siswa secara lengkap</p>
             </div>
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">

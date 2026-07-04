@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
 import { supabase } from "@/lib/supabase";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, KeyRound } from "lucide-react";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -16,9 +16,19 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
     //State error
     const [error, setError] = useState("");
     const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+
+    // Load remembered email on mount
+    useEffect(() => {
+        const rememberedEmail = localStorage.getItem("rememberedEmail");
+        if (rememberedEmail) {
+            setEmail(rememberedEmail);
+            setRememberMe(true);
+        }
+    }, []);
 
     //Handle submit register
     const handleSubmit = async (e: React.FormEvent) => {
@@ -56,6 +66,13 @@ export default function LoginPage() {
         if (signInError) {
             setError(signInError.message);
             return;
+        }
+
+        // Handle Remember Me storage
+        if (rememberMe) {
+            localStorage.setItem("rememberedEmail", email);
+        } else {
+            localStorage.removeItem("rememberedEmail");
         }
 
         //jika lolos
@@ -120,6 +137,24 @@ export default function LoginPage() {
                                 </button>
                             </div>
                         </div>
+                        
+                        <div className="flex items-center justify-between pt-1">
+                            <label className="flex items-center text-sm text-gray-700 cursor-pointer select-none">
+                                <input
+                                    type="checkbox"
+                                    checked={rememberMe}
+                                    onChange={(e) => setRememberMe(e.target.checked)}
+                                    className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2"
+                                />
+                                Remember Me
+                            </label>
+                            <Link
+                                href="/reset-password"
+                                className="text-sm font-semibold text-blue-600 hover:underline"
+                            >
+                                Lupa Password?
+                            </Link>
+                        </div>
                     </div>
                     {/* Recaptcha disini */}
                     <div className="flex justify-center pt-2 w-full overflow-hidden sm:overflow-visible">
@@ -166,6 +201,14 @@ export default function LoginPage() {
                     </svg>
                     Masuk dengan Google
                 </button>
+
+                <Link
+                    href="/login-otp"
+                    className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-gray-700 font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 shadow-sm"
+                >
+                    <KeyRound size={20} className="text-gray-500" />
+                    Masuk dengan OTP
+                </Link>
 
                 <p className="text-center text-sm text-gray-600">
                     Belum punya akun?{" "}

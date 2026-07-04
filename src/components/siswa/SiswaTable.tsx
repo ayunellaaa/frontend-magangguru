@@ -104,7 +104,7 @@ export default function SiswaTable({
             <div className="bg-gradient-to-r from-slate-700 to-slate-800 px-4 py-4 sm:px-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h2 className="text-lg sm:text-xl font-bold text-white">Daftar Siswa</h2>
-                    <p className="text-slate-300 text-xs mt-1">Data siswa aktif dari database backend</p>
+                    <p className="text-slate-300 text-xs mt-1">Data siswa aktif SMKS Brantas</p>
                 </div>
                 <div className="w-full sm:w-64">
                     <input
@@ -225,11 +225,10 @@ export default function SiswaTable({
                                     <td className="p-4 font-mono font-medium text-gray-900">{siswa.nis}</td>
                                     <td className="p-4 font-semibold text-gray-900">{siswa.nama}</td>
                                     <td className="p-4">
-                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                            siswa.jenis_kelamin === "L" 
-                                                ? "bg-blue-50 text-blue-700 border border-blue-100" 
+                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${siswa.jenis_kelamin === "L"
+                                                ? "bg-blue-50 text-blue-700 border border-blue-100"
                                                 : "bg-pink-50 text-pink-700 border border-pink-100"
-                                        }`}>
+                                            }`}>
                                             {siswa.jenis_kelamin === "L" ? "Laki-laki" : "Perempuan"}
                                         </span>
                                     </td>

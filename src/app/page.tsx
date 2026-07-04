@@ -14,6 +14,7 @@ export default function HomePage() {
   const router = useRouter();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const checkUser = async () => {
@@ -21,6 +22,9 @@ export default function HomePage() {
       if (!session) {
         router.push("/login");
       } else {
+        const metadata = session.user?.user_metadata;
+        const name = metadata?.full_name || metadata?.display_name || metadata?.name || session.user?.email || "";
+        setUserName(name);
         setIsLoading(false);
       }
     };
@@ -31,6 +35,10 @@ export default function HomePage() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
         router.push("/login");
+      } else {
+        const metadata = session.user?.user_metadata;
+        const name = metadata?.full_name || metadata?.display_name || metadata?.name || session.user?.email || "";
+        setUserName(name);
       }
     });
 
@@ -61,7 +69,9 @@ export default function HomePage() {
         </div>
 
         <main className="flex-1 p-4 sm:p-6 transition-all duration-300">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Selamat Datang</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">
+            Selamat Datang {userName}
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="bg-white p-6 rounded-lg shadow border border-gray-100">Statistik 1</div>

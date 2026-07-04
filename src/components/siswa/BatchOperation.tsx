@@ -98,7 +98,7 @@ export default function BatchOperation({ classes, onSaveBatch }: BatchOperationP
             }));
 
             await onSaveBatch(payload, mode);
-            
+
             const defaultClassId = classes.length > 0 ? classes[0].id : 1;
             setRows([
                 {
@@ -236,7 +236,7 @@ export default function BatchOperation({ classes, onSaveBatch }: BatchOperationP
                         <Plus size={16} />
                         Tambah Baris
                     </button>
-                    
+
                     <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                         {/* Button 1: Add (Insert Only) */}
                         <button
@@ -246,7 +246,7 @@ export default function BatchOperation({ classes, onSaveBatch }: BatchOperationP
                             className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm shadow hover:shadow-md transition-all disabled:opacity-50 w-full sm:w-auto"
                         >
                             <Plus size={16} />
-                            {isSaving && saveMode === "add" ? "Menambahkan..." : "Add (Tambah Data)"}
+                            {isSaving && saveMode === "add" ? "Menambahkan..." : "Add"}
                         </button>
 
                         {/* Button 2: Update (Upsert) */}
@@ -257,7 +257,7 @@ export default function BatchOperation({ classes, onSaveBatch }: BatchOperationP
                             className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-semibold text-sm shadow hover:shadow-md transition-all disabled:opacity-50 w-full sm:w-auto"
                         >
                             <RefreshCw size={16} className={isSaving && saveMode === "update" ? "animate-spin" : ""} />
-                            {isSaving && saveMode === "update" ? "Mengupdate..." : "Update (Update + Insert)"}
+                            {isSaving && saveMode === "update" ? "Mengupdate..." : "Update"}
                         </button>
                     </div>
                 </div>

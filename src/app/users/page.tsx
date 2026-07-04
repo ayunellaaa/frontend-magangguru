@@ -245,7 +245,7 @@ function UsersContent() {
             <PageTransition>
                 <div className="min-h-screen bg-gray-50 p-4 md:p-8 font-sans">
                     <div className="max-w-7xl mx-auto space-y-6">
-                        
+
                         {/* Navigation / Header */}
                         <div className="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                             <Link
@@ -258,7 +258,7 @@ function UsersContent() {
                                 Kembali ke Home
                             </Link>
                             <h1 className="text-lg font-bold text-slate-800 hidden sm:block">
-                                Kelola Data Siswa
+                                Management Data Siswa
                             </h1>
                         </div>
 

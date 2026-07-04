@@ -82,8 +82,8 @@ class NotificationManager {
             const origin = window.location.origin;
             const notificationOptions: any = {
                 body: options.body,
-                icon: new URL(options.icon || '/icon-192x192.png', origin).href,
-                badge: new URL(options.badge || '/icon-72x72.png', origin).href,
+                icon: new URL(options.icon || '/icons/android/launchericon-192x192.png', origin).href,
+                badge: new URL(options.badge || '/icons/android/launchericon-72x72.png', origin).href,
                 data: {
                     url: new URL(options.redirectUrl || window.location.pathname, origin).href
                 }
@@ -105,7 +105,7 @@ class NotificationManager {
                 console.log("Attempting fallback to standard window.Notification");
                 new Notification(options.title, {
                     body: options.body,
-                    icon: new URL(options.icon || '/icon-192x192.png', origin).href
+                    icon: new URL(options.icon || '/icons/android/launchericon-192x192.png', origin).href
                 });
             } catch (err) {
                 console.error('Fallback window.Notification juga gagal:', err);
