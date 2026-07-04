@@ -132,24 +132,28 @@ export default function IndexDBPage() {
         }
     };
 
-    //Hapus semua Todo
+    //Hapus todo yang selesai
     const clearAll = async () => {
         try {
+            const completedCount = todos.filter(todo => todo.completed).length;
+            if (completedCount === 0) return;
+
             const { error } = await supabase
                 .from('todos')
                 .delete()
-                .neq("id", 0); //Hapus Semua Record
+                .eq('completed', true);
 
             if (error) throw error;
             sendNotification({
-                title: "Semua Todo Dihapus",
-                body: "Seluruh daftar todo telah dibersihkan dari database."
+                title: "Todo Selesai Dihapus",
+                body: `${completedCount} todo selesai telah dihapus dari database.`
             });
             loadTodos();
         } catch (error) {
-            console.error('Error clearing todos:', error);
+            console.error('Error clearing completed todos:', error);
         }
     };
+
 
     // Jika belum mounted di browser, return null atau loading state tipis untuk mencegah perbedaan HTML server-client
     if (!isMounted) {
@@ -212,12 +216,12 @@ export default function IndexDBPage() {
                         <div className="bg-white p-6 rounded-xl shadow">
                             <div className="flex justify-between items-center mb-4">
                                 <h2 className="text-xl font-bold">Daftar Todo ({todos.length})</h2>
-                                {todos.length > 0 && (
+                                {todos.some(todo => todo.completed) && (
                                     <button
                                         onClick={clearAll}
                                         className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm transition"
                                     >
-                                        Hapus Semua
+                                        Hapus Todo Selesai
                                     </button>
                                 )}
                             </div>

@@ -118,21 +118,31 @@ export default function IndexDBPage() {
         };
     };
 
-    // Hapus semua Todo
+    // Hapus todo yang selesai/terpilih
     const clearTodos = () => {
         if (!db) return;
+        const completedTodos = todos.filter(todo => todo.completed);
+        if (completedTodos.length === 0) return;
+
         const transaction = db.transaction(["todos"], "readwrite");
         const objectStore = transaction.objectStore("todos");
-        const request = objectStore.clear();
 
-        request.onsuccess = () => {
-            loadTodos(db);
-            sendNotification({
-                title: "Semua Todo Dihapus",
-                body: "Seluruh daftar todo telah dibersihkan."
-            });
-        };
+        let deletedCount = 0;
+        completedTodos.forEach(todo => {
+            const request = objectStore.delete(todo.id);
+            request.onsuccess = () => {
+                deletedCount++;
+                if (deletedCount === completedTodos.length) {
+                    loadTodos(db);
+                    sendNotification({
+                        title: "Todo Selesai Dihapus",
+                        body: `${completedTodos.length} todo selesai telah dihapus dari IndexedDB.`
+                    });
+                }
+            };
+        });
     };
+
 
     return (
         <MainLayout>
@@ -173,12 +183,12 @@ export default function IndexDBPage() {
                         <div className="bg-white p-4 md:p-6 rounded-xl shadow">
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                                 <h2 className="text-xl font-bold">Daftar Todo ({todos.length})</h2>
-                                {todos.length > 0 && (
+                                {todos.some(todo => todo.completed) && (
                                     <button
                                         onClick={clearTodos}
                                         className="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                                     >
-                                        Hapus Semua
+                                        Hapus Todo Selesai
                                     </button>
                                 )}
                             </div>
