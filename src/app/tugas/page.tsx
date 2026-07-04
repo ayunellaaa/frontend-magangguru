@@ -21,7 +21,7 @@ function TugasContent() {
     const [userId, setUserId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [tugasList, setTugasList] = useState<Tugas[]>([]);
-    
+
     // Form states
     const [judul, setJudul] = useState("");
     const [deskripsi, setDeskripsi] = useState("");
@@ -113,7 +113,7 @@ function TugasContent() {
             // Reset form
             setJudul("");
             setDeskripsi("");
-            
+
             // Refresh tasks list
             fetchTugas();
             alert("Tugas berhasil dikirim!");
@@ -135,7 +135,7 @@ function TugasContent() {
                     .eq("id", id);
 
                 if (error) throw error;
-                
+
                 // Refresh list
                 fetchTugas();
             } catch (err: any) {
@@ -156,26 +156,9 @@ function TugasContent() {
     return (
         <div className="min-h-screen bg-gray-50 p-4 md:p-8 font-sans">
             <div className="max-w-7xl mx-auto space-y-6">
-                
-                {/* Header */}
-                <div className="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm"
-                    >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Kembali ke Home
-                    </Link>
-                    <h1 className="text-lg font-bold text-slate-800 hidden sm:block">
-                        Pengumpulan Tugas Siswa
-                    </h1>
-                </div>
-
                 {/* Main Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
+
                     {/* Left Column: Task Form */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
@@ -286,7 +269,6 @@ function TugasContent() {
                                         <div className="text-center py-12 bg-slate-50 rounded-xl border border-dashed border-gray-200">
                                             <Info size={36} className="text-slate-400 mx-auto mb-2" />
                                             <p className="text-slate-500 font-medium">Belum ada tugas yang dikumpulkan.</p>
-                                            <p className="text-slate-400 text-xs mt-1">Gunakan form di sebelah kiri untuk mengunggah tugas pertama Anda.</p>
                                         </div>
                                     )}
                                 </div>

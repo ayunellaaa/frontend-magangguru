@@ -161,21 +161,9 @@ export default function IndexDBPage() {
             <PageTransition>
                 <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6">
                     <div className="max-w-3xl mx-auto space-y-6">
-                        {/* Tombol Kembali */}
-                        <div className="mb-6">
-                            <Link
-                                href="/"
-                                className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm"
-                            >
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                                Kembali ke Home
-                            </Link>
-                        </div>
                         {/* Header */}
                         <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-xl shadow-md">
-                            <h1 className="text-3xl font-bold">Todo List with SSupabase</h1>
+                            <h1 className="text-3xl font-bold">Todo List with Supabase</h1>
                         </div>
 
                         {/* Banner Izin Notifikasi (User Gesture Trigger) */}
@@ -202,18 +190,18 @@ export default function IndexDBPage() {
                         {/* Input Form */}
                         <div className="bg-white p-6 rounded-xl shadow">
                             <h2 className="text-xl font-bold mb-4">Tambah Todo</h2>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
                                 <input
                                     type="text"
                                     value={newTodo}
                                     onChange={(e) => setNewTodo(e.target.value)}
                                     onKeyPress={(e) => e.key === "Enter" && addTodo()}
                                     placeholder="Apa yang ingin anda lakukan"
-                                    className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500"
+                                    className="w-full sm:flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 text-gray-900"
                                 />
                                 <button
                                     onClick={addTodo}
-                                    className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+                                    className="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition active:scale-[0.98]"
                                 >
                                     Tambah
                                 </button>

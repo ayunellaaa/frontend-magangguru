@@ -129,7 +129,7 @@ export default function Sidebar({
     return (
         <aside
             className={`
-                fixed inset-y-0 left-0 z-40 bg-white border-r w-64 transform transition-transform duration-300 ease-in-out flex flex-col
+                fixed inset-y-0 left-0 z-[9999] bg-white border-r w-64 transform transition-transform duration-300 ease-in-out flex flex-col
                 ${isOpen ? "translate-x-0" : "-translate-x-full"}
                 md:sticky md:top-16 md:h-[calc(100vh-64px)] md:translate-x-0
                 ${className}

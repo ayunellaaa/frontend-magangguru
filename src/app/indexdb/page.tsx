@@ -141,18 +141,6 @@ export default function IndexDBPage() {
                     {/* PERBAIKAN DI SINI: Menghapus max-w-5xl agar kontainer mengikuti 100% lebar layar browser */}
                     <div className="w-full space-y-6">
 
-                        {/* Tombol Kembali */}
-                        <div className="mb-6">
-                            <Link
-                                href="/"
-                                className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm"
-                            >
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                                Kembali ke Home
-                            </Link>
-                        </div>
 
                         {/* Header */}
                         <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 md:p-8 rounded-xl shadow-lg">

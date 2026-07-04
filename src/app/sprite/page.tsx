@@ -50,20 +50,6 @@ export default function SpritePage() {
         <MainLayout>
             <PageTransition>
                 <div className="min-h-screen bg-gray-100 p-4 md:p-6 lg:p-8">
-                    {/* 2. Tambahkan Menu/Tombol Kembali ke Home di sini */}
-                    <div className="mb-6">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm w-fit"
-                        >
-                            {/* Icon panah ke kiri */}
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                            Kembali ke Home
-                        </Link>
-                    </div>
-
                     {/* Header */}
                     <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm">
                         <h1 className="m-0 text-xl md:text-2xl font-semibold">Sosial Media Icons</h1>

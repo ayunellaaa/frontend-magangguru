@@ -47,17 +47,6 @@ export default function MapComponent() {
             <PageTransition>
                 <div className="min-h-screen bg-gray-50">
                     <div className="container mx-auto p-6">
-                        <div className="mb-6">
-                            <Link
-                                href="/"
-                                className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm w-fit"
-                            >
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                                Kembali ke Home
-                            </Link>
-                        </div>
                         <h1 className="text-3xl font-bold mb-6">Peta Sederhana</h1>
 
                         <div className="bg-white rounded-lg shadow p-4 mb-4">
