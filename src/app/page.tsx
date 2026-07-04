@@ -49,7 +49,7 @@ export default function HomePage() {
     <div className="min-h-screen flex bg-gray-50">
       <Sidebar
         isOpen={isSidebarOpen}
-        onClose={() => setSidebarOpen(true)}
+        onClose={() => setSidebarOpen(false)}
       />
 
       <div className="flex-1 flex flex-col min-w-0">

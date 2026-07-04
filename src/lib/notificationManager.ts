@@ -79,17 +79,17 @@ class NotificationManager {
         }
 
         try {
-            const notificationOptions: NotificationOptions & { data?: { url: string } } = {
-                title: options.title,
+            const origin = window.location.origin;
+            const notificationOptions: any = {
                 body: options.body,
-                icon: options.icon || '/icon-192x192.png',
-                badge: options.badge || '/icon-72x72.png',
+                icon: new URL(options.icon || '/icon-192x192.png', origin).href,
+                badge: new URL(options.badge || '/icon-72x72.png', origin).href,
                 data: {
-                    url: options.redirectUrl || window.location.pathname
+                    url: new URL(options.redirectUrl || window.location.pathname, origin).href
                 }
             };
 
-            console.log("Showing notification with options:", notificationOptions);
+            console.log("Showing notification with absolute options:", notificationOptions);
 
             if (this.swRegistration) {
                 await this.swRegistration.showNotification(options.title, notificationOptions);
@@ -101,10 +101,11 @@ class NotificationManager {
         } catch (error) {
             console.error('Error mengirim notifikasi via Service Worker:', error);
             try {
+                const origin = window.location.origin;
                 console.log("Attempting fallback to standard window.Notification");
                 new Notification(options.title, {
                     body: options.body,
-                    icon: options.icon || '/icon-192x192.png'
+                    icon: new URL(options.icon || '/icon-192x192.png', origin).href
                 });
             } catch (err) {
                 console.error('Fallback window.Notification juga gagal:', err);

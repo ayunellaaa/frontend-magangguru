@@ -20,12 +20,17 @@ export default function IndexDBPage() {
     const [loading, setLoading] = useState(true);
     // Tambahkan state ini untuk mencegah Hydration Error
     const [isMounted, setIsMounted] = useState(false);
-    const { sendNotification } = useNotification();
+    const { sendNotification, requestPermission } = useNotification();
+    const [permissionStatus, setPermissionStatus] = useState<string>("default");
 
     //inisialisasi indexdb
     useEffect(() => {
         setIsMounted(true); // Set true setelah komponen ter-mount di client
         loadTodos();
+
+        if (typeof window !== "undefined" && "Notification" in window) {
+            setPermissionStatus(Notification.permission);
+        }
 
         //Subcribe ke perubahan realtime
         const channel = supabase
@@ -60,6 +65,12 @@ export default function IndexDBPage() {
             console.error('Error loading todos;', error);
             setLoading(false);
         }
+    };
+
+    // Minta izin notifikasi secara manual lewat klik
+    const handleEnableNotifications = async () => {
+        const result = await requestPermission();
+        setPermissionStatus(result);
     };
 
     //Tambah Todo baru
@@ -166,6 +177,27 @@ export default function IndexDBPage() {
                         <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-xl shadow-md">
                             <h1 className="text-3xl font-bold">Todo List with SSupabase</h1>
                         </div>
+
+                        {/* Banner Izin Notifikasi (User Gesture Trigger) */}
+                        {permissionStatus !== "granted" && (
+                            <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-xl shadow flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div className="space-y-1">
+                                    <h3 className="font-bold text-amber-900 text-base">Aktifkan Notifikasi Web</h3>
+                                    <p className="text-sm text-slate-600">
+                                        Dapatkan pemberitahuan langsung saat Anda berhasil menambahkan todo.
+                                    </p>
+                                    <p className="text-xs text-amber-700 italic">
+                                        *Untuk pengguna iOS (iPhone), tambahkan web ini ke Layar Utama (Add to Home Screen) terlebih dahulu agar notifikasi dapat didukung.
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={handleEnableNotifications}
+                                    className="w-full sm:w-auto px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm rounded-lg transition shadow cursor-pointer shrink-0"
+                                >
+                                    Aktifkan
+                                </button>
+                            </div>
+                        )}
 
                         {/* Input Form */}
                         <div className="bg-white p-6 rounded-xl shadow">
