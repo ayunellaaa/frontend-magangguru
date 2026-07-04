@@ -155,19 +155,6 @@ export default function AnalyticDashboardPage() {
                                     Viewing data for: <strong>{FILTER_OPTIONS.find(f => f.value === dateFilter)?.label}</strong>
                                 </p>
                             </div>
-                            {/* 2. Tambahkan Menu/Tombol Kembali ke Home di sini */}
-                            <div className="mb-6">
-                                <Link
-                                    href="/"
-                                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm w-fit"
-                                >
-                                    {/* Icon panah ke kiri */}
-                                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                    </svg>
-                                    Kembali ke Home
-                                </Link>
-                            </div>
                         </div>
 
                         {/* Filter dan Controls */}
@@ -213,10 +200,9 @@ export default function AnalyticDashboardPage() {
                             </div>
                         </div>
 
-                        {/* Stat Cards */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                             {statsItems.map((stat, index) => (
-                                <div key={index} className="bg-white rounded-lg shadow-md p-6 flex justify-between items-center transform transition hover:scale-[1.02]">
+                                <div key={index} className="bg-white rounded-xl shadow-md p-6 flex justify-between items-center transform transition-all duration-300 hover:scale-105 hover:-translate-y-1.5 hover:shadow-xl border border-slate-100 hover:border-blue-500/30 cursor-pointer">
                                     <div>
                                         <p className="text-gray-500 text-sm uppercase tracking-wide font-medium">{stat.title}</p>
                                         <p className="text-2xl font-bold text-gray-800 mt-1">{stat.value}</p>
