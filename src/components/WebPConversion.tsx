@@ -22,7 +22,7 @@ export default function WebPConversion({ compressedFile, resizeData }: WebPConve
         setLoading(true);
 
         const formData = new FormData();
-        formData.append('file', compressedFile);
+        formData.append('file', compressedFile, compressedFile.name || 'image.jpg');
 
         try {
             const response = await fetch('/api/webp', {

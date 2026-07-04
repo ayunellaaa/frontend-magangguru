@@ -18,7 +18,7 @@ export default function ServerSide({ compressedFile, originalSize, onresized }: 
         setLoading(true);
 
         const formData = new FormData();
-        formData.append('file', compressedFile);
+        formData.append('file', compressedFile, compressedFile.name || 'image.jpg');
 
         try {
             const response = await fetch('/api/server-resize', {

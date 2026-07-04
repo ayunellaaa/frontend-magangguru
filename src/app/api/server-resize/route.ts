@@ -19,7 +19,16 @@ export async function POST(request: NextRequest) {
         await mkdir(uploadDir, { recursive: true });
 
         const timestamp = Date.now();
-        const ext = file.name.split('.').pop();
+        let ext = file.name.split('.').pop()?.toLowerCase();
+        if (!ext || ext === 'blob') {
+            const mimeType = file.type || '';
+            if (mimeType.startsWith('image/')) {
+                ext = mimeType.split('/')[1];
+                if (ext === 'jpeg') ext = 'jpg';
+            } else {
+                ext = 'jpg';
+            }
+        }
 
         const originalFilename = `${timestamp}-compressed.${ext}`;
         const thumbnailFilename = `${timestamp}-thumbnail.${ext}`;
