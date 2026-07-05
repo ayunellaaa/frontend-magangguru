@@ -15,42 +15,20 @@ export async function POST(request: NextRequest){
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-        await mkdir(uploadDir, {recursive: true});
+        const webpBuffer = await sharp(buffer)
+            .webp({ quality: 80 })
+            .toBuffer();
 
-        const timestamp = Date.now();
-        let ext = file.name.split('.').pop()?.toLowerCase();
-        if (!ext || ext === 'blob') {
-            const mimeType = file.type || '';
-            if (mimeType.startsWith('image/')) {
-                ext = mimeType.split('/')[1];
-                if (ext === 'jpeg') ext = 'jpg';
-            } else {
-                ext = 'jpg';
-            }
-        }
-
-        const originalFilename = `${timestamp}-final.${ext}`;
-        const webpFilename = `${timestamp}-final.webp`;
-
-        const originalPath = path.join(uploadDir, originalFilename);
-        const webpPath = path.join(uploadDir, webpFilename);
-        await writeFile(originalPath, buffer);
-       
-        await sharp(buffer)
-        .webp({quality: 80})
-        .toFile(webpPath) ;
-
-        const originalStats = await stat(originalPath);
-        const webpStats = await stat(webpPath);
+        const originalBase64 = `data:${file.type || 'image/jpeg'};base64,${buffer.toString('base64')}`;
+        const webpBase64 = `data:image/webp;base64,${webpBuffer.toString('base64')}`;
 
         return NextResponse.json({
-            originalUrl: `/uploads/${originalFilename}`,
-            webpUrl: `/uploads/${webpFilename}`,
+            originalUrl: originalBase64,
+            webpUrl: webpBase64,
             size: {
                 originalUpload: file.size,
-                original: originalStats.size,
-                webp: webpStats.size
+                original: buffer.length,
+                webp: webpBuffer.length
             },
         });
     }

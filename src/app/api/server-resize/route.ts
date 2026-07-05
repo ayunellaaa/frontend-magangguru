@@ -15,44 +15,22 @@ export async function POST(request: NextRequest) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-        await mkdir(uploadDir, { recursive: true });
-
-        const timestamp = Date.now();
-        let ext = file.name.split('.').pop()?.toLowerCase();
-        if (!ext || ext === 'blob') {
-            const mimeType = file.type || '';
-            if (mimeType.startsWith('image/')) {
-                ext = mimeType.split('/')[1];
-                if (ext === 'jpeg') ext = 'jpg';
-            } else {
-                ext = 'jpg';
-            }
-        }
-
-        const originalFilename = `${timestamp}-compressed.${ext}`;
-        const thumbnailFilename = `${timestamp}-thumbnail.${ext}`;
-
-        const originalPath = path.join(uploadDir, originalFilename);
-        await writeFile(originalPath, buffer);
-
-        const thumbnailPath = path.join(uploadDir, thumbnailFilename);
-        await sharp(buffer)
+        const thumbnailBuffer = await sharp(buffer)
             .resize(300, 300, {
                 fit: 'cover',
                 position: 'center',
             })
-            .toFile(thumbnailPath);
+            .toBuffer();
 
-        const compressedStats = await stat(originalPath);
-        const thumbnailStats = await stat(thumbnailPath);
+        const originalBase64 = `data:${file.type || 'image/jpeg'};base64,${buffer.toString('base64')}`;
+        const thumbnailBase64 = `data:${file.type || 'image/jpeg'};base64,${thumbnailBuffer.toString('base64')}`;
 
         return NextResponse.json({
-            originalUrl: `/uploads/${originalFilename}`,
-            thumbnailUrl: `/uploads/${thumbnailFilename}`,
+            originalUrl: originalBase64,
+            thumbnailUrl: thumbnailBase64,
             size: {
-                compressed: compressedStats.size,
-                thumbnail: thumbnailStats.size,
+                compressed: buffer.length,
+                thumbnail: thumbnailBuffer.length,
             },
         });
     } catch (error) {
